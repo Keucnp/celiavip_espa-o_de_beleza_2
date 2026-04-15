@@ -144,11 +144,12 @@ export default function Layout({ children }: LayoutProps) {
           <button 
             onClick={handleSync}
             className={cn(
-              "w-12 h-12 flex items-center justify-center transition-all active:scale-95 bg-white dark:bg-slate-900 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800",
+              "w-14 h-14 flex items-center justify-center transition-all active:scale-95 bg-white dark:bg-slate-900 rounded-2xl shadow-md border border-slate-100 dark:border-slate-800 hover:shadow-lg hover:border-indigo-200 dark:hover:border-indigo-900/50",
               isSyncing && "animate-pulse"
             )}
+            title="Sincronizar dados"
           >
-            <img src="/logo.png" alt="Logo" className="w-10 h-10 object-contain" referrerPolicy="no-referrer" />
+            <img src="/logo.png" alt="Logo" className="w-11 h-11 object-contain" referrerPolicy="no-referrer" />
           </button>
           
           <nav className="flex flex-col gap-4 flex-1">
@@ -216,7 +217,7 @@ export default function Layout({ children }: LayoutProps) {
       <header className="md:hidden fixed top-0 left-0 w-full bg-white/80 dark:bg-slate-900/80 backdrop-blur-lg border-b border-slate-200 dark:border-slate-800 px-6 py-3 flex flex-col z-50">
         <div className="flex justify-between items-center w-full">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 flex items-center justify-center">
+            <div className="w-11 h-11 flex items-center justify-center bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-100 dark:border-slate-800 p-1">
               <img src="/logo.png" alt="Logo" className="w-full h-full object-contain" referrerPolicy="no-referrer" />
             </div>
             <span className="font-bold text-slate-900 dark:text-white">CéliaVip</span>
