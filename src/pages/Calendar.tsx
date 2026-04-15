@@ -104,9 +104,7 @@ export default function Calendar() {
     setNotificationStatus(Notification.permission as any);
     
     if (granted) {
-      notificationService.notify('Agenda Configurada!', {
-        body: 'Você receberá alertas vibratórios e sonoros para seus compromissos.'
-      } as any);
+      // Notification removed as requested
     }
   }
 
@@ -168,7 +166,7 @@ export default function Calendar() {
               )}
             >
               <Clock size={12} />
-              {notificationsEnabled ? 'Alertas Ativos' : 'Configurar Agenda'}
+              {notificationsEnabled ? 'Alertas Ativos' : ''}
             </button>
           )}
 
