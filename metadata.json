@@ -1,0 +1,9 @@
+{
+  "name": "Remix: CéliaVip Espaço de Beleza",
+  "description": "Uma ferramenta moderna e minimalista para organização financeira, tarefas, calendário e gestão de clientes integrada ao Google Planilhas.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone",
+    "geolocation"
+  ]
+}
