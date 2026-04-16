@@ -149,7 +149,7 @@ export default function Layout({ children }: LayoutProps) {
             )}
             title="Sincronizar dados"
           >
-            <img src="/logo-v2.png" alt="Logo" className="w-11 h-11 object-contain" referrerPolicy="no-referrer" />
+            <img src="/logo-v3.png" alt="Logo" className="w-11 h-11 object-contain" referrerPolicy="no-referrer" />
           </button>
           
           <nav className="flex flex-col gap-4 flex-1">
@@ -218,7 +218,7 @@ export default function Layout({ children }: LayoutProps) {
         <div className="flex justify-between items-center w-full">
           <div className="flex items-center gap-3">
             <div className="w-11 h-11 flex items-center justify-center bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-100 dark:border-slate-800 p-1">
-              <img src="/logo-v2.png" alt="Logo" className="w-full h-full object-contain" referrerPolicy="no-referrer" />
+              <img src="/logo-v3.png" alt="Logo" className="w-full h-full object-contain" referrerPolicy="no-referrer" />
             </div>
             <span className="font-bold text-slate-900 dark:text-white">CéliaVip</span>
           </div>
