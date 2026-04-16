@@ -20,6 +20,7 @@ import { googleSheetsService } from '../services/dataService';
 import { notificationService } from '../services/notificationService';
 import { motion, AnimatePresence } from 'motion/react';
 import { Task } from '../types';
+import { toast } from '../components/Toast';
 
 export default function Calendar() {
   const [currentMonth, setCurrentMonth] = useState(new Date());
@@ -89,13 +90,13 @@ export default function Calendar() {
 
   async function handleEnableNotifications() {
     if (!('Notification' in window)) {
-      alert('Seu navegador não suporta notificações nativas.\n\nDICA PARA CELULAR:\n1. Clique nos três pontos (⋮) ou no ícone de compartilhar.\n2. Selecione "Instalar Aplicativo" ou "Adicionar à Tela de Início".\n3. Abra o app pela tela inicial para habilitar os alertas!');
+      toast.info('Navegador não suportado', 'Seu navegador não suporta notificações nativas. Tente instalar o app na tela inicial.');
       setNotificationStatus('unsupported');
       return;
     }
     
     if (Notification.permission === 'denied') {
-      alert('As notificações foram bloqueadas nas configurações do seu navegador.\n\nPara corrigir:\n1. Clique no cadeado (🔒) ao lado da URL.\n2. Ative a permissão de "Notificações".');
+      toast.error('Notificações Bloqueadas', 'Ative a permissão de notificações nas configurações do seu navegador.');
       return;
     }
 

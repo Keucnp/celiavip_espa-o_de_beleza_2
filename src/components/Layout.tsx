@@ -18,6 +18,7 @@ import { cn } from '../lib/utils';
 import { googleSheetsService } from '../services/dataService';
 import { notificationService } from '../services/notificationService';
 import { motion, AnimatePresence } from 'motion/react';
+import { ToastContainer } from './Toast';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -377,6 +378,7 @@ export default function Layout({ children }: LayoutProps) {
           </div>
         </footer>
       </main>
+      <ToastContainer />
     </div>
   );
 }

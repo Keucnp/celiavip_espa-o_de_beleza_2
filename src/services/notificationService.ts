@@ -1,5 +1,6 @@
 import { Task } from '../types';
 import { parseISO, isBefore, addMinutes, subMinutes, isAfter, format } from 'date-fns';
+import { toast } from '../components/Toast';
 
 class NotificationService {
   private permission: NotificationPermission = 'default';
@@ -104,18 +105,13 @@ class NotificationService {
       }
     }
 
-    // FINAL FALLBACK: window.alert
-    // This is the most reliable way to get a native-looking popup in Android WebViews (Kodular)
-    // We use setTimeout to ensure it doesn't block the main thread immediately
-    setTimeout(() => {
-      alert(`🔔 ${title}\n\n${options?.body || ''}`);
-    }, 100);
+    // FINAL FALLBACK: Toast notification
+    toast.info(title, options?.body);
   }
 
   // Helper to show a visual alert if browser notifications are not supported or blocked
   showVisualAlert(title: string, message: string) {
-    // This can be expanded to a custom UI toast/modal if needed
-    alert(`${title}\n\n${message}`);
+    toast.info(title, message);
   }
 
   checkAndNotify(tasks: Task[]) {

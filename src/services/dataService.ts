@@ -1,4 +1,5 @@
 import { Transaction, Task, Client } from '../types';
+import { toast } from '../components/Toast';
 
 const STORAGE_KEYS = {
   FINANCE: 'organizapro_finance',
@@ -43,7 +44,7 @@ export const storageService = {
     } catch (e) {
       console.error('Error saving finance to localStorage:', e);
       if (e instanceof Error && e.name === 'QuotaExceededError') {
-        alert('Memória do navegador cheia. Tente excluir alguns registros antigos.');
+        toast.error('Memória cheia', 'Tente excluir alguns registros antigos.');
       }
     }
   },
@@ -69,7 +70,7 @@ export const storageService = {
     } catch (e) {
       console.error('Error saving task to localStorage:', e);
       if (e instanceof Error && e.name === 'QuotaExceededError') {
-        alert('Memória do navegador cheia. Tente excluir algumas tarefas antigas.');
+        toast.error('Memória cheia', 'Tente excluir algumas tarefas antigas.');
       }
     }
   },
@@ -105,7 +106,7 @@ export const storageService = {
     } catch (e) {
       console.error('Error saving client to localStorage:', e);
       if (e instanceof Error && e.name === 'QuotaExceededError') {
-        alert('Memória do navegador cheia. Tente excluir alguns clientes antigos.');
+        toast.error('Memória cheia', 'Tente excluir alguns clientes antigos.');
       }
     }
   },

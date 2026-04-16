@@ -5,6 +5,7 @@ import { googleSheetsService } from '../services/dataService';
 import { Transaction } from '../types';
 import { formatCurrency, formatDate, cn } from '../lib/utils';
 import { motion, AnimatePresence } from 'motion/react';
+import { toast } from '../components/Toast';
 
 export default function Finance() {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
@@ -122,7 +123,7 @@ export default function Finance() {
     } catch (error) {
       console.error('Export failed:', error);
       setExporting(false);
-      alert('Erro ao gerar planilha. Tente novamente.');
+      toast.error('Erro na exportação', 'Erro ao gerar planilha. Tente novamente.');
     }
   }
 
@@ -136,7 +137,7 @@ export default function Finance() {
       setTimeout(() => setShowExportModal(false), 2000);
     } catch (e) {
       console.error('Download failed', e);
-      alert('O download falhou. Tente usar a opção de compartilhar ou copiar.');
+      toast.error('Download falhou', 'Tente usar a opção de compartilhar ou copiar.');
     }
   };
 
