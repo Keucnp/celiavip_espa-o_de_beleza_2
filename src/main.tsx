@@ -6,16 +6,24 @@ import './index.css';
 // Global error handling for mobile debugging
 if (typeof window !== 'undefined') {
   window.onerror = function(message, source, lineno, colno, error) {
+    // Ignore benign Vite WebSocket errors
+    const msg = message.toString();
+    if (msg.includes('WebSocket') || msg.includes('vite')) {
+      return true; // Prevents the error from being printed to console
+    }
     console.error('Global Error:', message, error);
-    // Only show alert in development or if explicitly requested, 
-    // but for this "not opening" issue, it's helpful.
-    // alert('Erro ao carregar app: ' + message);
     return false;
   };
 
   window.onunhandledrejection = function(event) {
+    // Ignore benign Vite WebSocket errors that happen because HMR is disabled in this environment
+    if (event.reason && (
+      event.reason.message?.includes('WebSocket') || 
+      event.reason.toString().includes('WebSocket')
+    )) {
+      return;
+    }
     console.error('Unhandled Rejection:', event.reason);
-    // alert('Erro de promessa: ' + event.reason);
   };
 }
 

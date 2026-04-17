@@ -78,8 +78,8 @@ class NotificationService {
     if (this.swRegistration && this.permission === 'granted') {
       try {
         await this.swRegistration.showNotification(title, {
-          icon: '/logo-v3.png',
-          badge: '/logo-v3.png',
+          icon: '/logo-final.png',
+          badge: '/logo-final.png',
           vibrate: [300, 100, 300, 100, 500],
           tag: options?.tag || 'general',
           renotify: true,
