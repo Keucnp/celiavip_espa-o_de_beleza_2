@@ -151,7 +151,7 @@ export default function Layout({ children }: LayoutProps) {
             title="Sincronizar dados"
           >
             <img 
-              src="/logo-final.png?v=2" 
+              src="/logo-final.png?v=3" 
               alt="Logo" 
               className="w-11 h-11 object-contain" 
               referrerPolicy="no-referrer"
@@ -226,7 +226,7 @@ export default function Layout({ children }: LayoutProps) {
           <div className="flex items-center gap-3">
             <div className="w-11 h-11 flex items-center justify-center bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-100 dark:border-slate-800 p-1">
               <img 
-                src="/logo-final.png?v=2" 
+                src="/logo-final.png?v=3" 
                 alt="Logo" 
                 className="w-full h-full object-contain" 
                 referrerPolicy="no-referrer"
