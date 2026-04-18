@@ -204,13 +204,9 @@ export default function Layout({ children }: LayoutProps) {
             )}
             title="Sincronizar dados"
           >
-            <img 
-              src="/logo-final.png?v=3" 
-              alt="Logo" 
-              className="w-11 h-11 object-contain" 
-              referrerPolicy="no-referrer"
-              onError={(e) => console.error('Logo failed to load (desktop side):', (e.target as HTMLImageElement).src)}
-            />
+            <div className="w-11 h-11 flex items-center justify-center bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 rounded-xl">
+              <Sparkles size={24} />
+            </div>
           </button>
           
           <nav className="flex flex-col gap-4 flex-1">
@@ -278,14 +274,8 @@ export default function Layout({ children }: LayoutProps) {
       <header className="md:hidden fixed top-0 left-0 w-full bg-white/80 dark:bg-slate-900/80 backdrop-blur-lg border-b border-slate-200 dark:border-slate-800 px-6 py-3 flex flex-col z-50">
         <div className="flex justify-between items-center w-full">
           <div className="flex items-center gap-3">
-            <div className="w-11 h-11 flex items-center justify-center bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-100 dark:border-slate-800 p-1">
-              <img 
-                src="/logo-final.png?v=3" 
-                alt="Logo" 
-                className="w-full h-full object-contain" 
-                referrerPolicy="no-referrer"
-                onError={(e) => console.error('Logo failed to load (mobile header):', (e.target as HTMLImageElement).src)}
-              />
+            <div className="w-11 h-11 flex items-center justify-center bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 rounded-xl shadow-sm border border-slate-100 dark:border-slate-800">
+              <Sparkles size={22} />
             </div>
             <span className="font-bold text-slate-900 dark:text-white">CéliaVip</span>
           </div>
