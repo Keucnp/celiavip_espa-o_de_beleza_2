@@ -1,25 +1,52 @@
 {
   "name": "CéliaVip - Espaço de Beleza",
   "short_name": "CéliaVip",
-  "description": "Sistema completo de gestão financeira e tarefas.",
-  "start_url": "/",
+  "description": "Sistema completo de gestão de beleza, financeira e tarefas.",
+  "id": "/?source=pwa",
+  "start_url": "/?source=pwa",
   "display": "standalone",
-  "orientation": "portrait-primary",
+  "orientation": "portrait",
   "background_color": "#ffffff",
   "theme_color": "#4f46e5",
-  "categories": ["business", "productivity"],
+  "lang": "pt-BR",
+  "dir": "ltr",
+  "categories": ["business", "lifestyle", "productivity"],
   "icons": [
     {
-      "src": "/icon_512_pro.png?v=7",
+      "src": "/icon_512_pro.png?v=8",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
     },
     {
-      "src": "/icon_512_pro.png?v=7",
+      "src": "/icon_512_pro.png?v=8",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/icon_512_pro.png?v=8",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "/icon_512_pro.png?v=8",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Agenda",
+      "url": "/?page=tasks",
+      "icons": [{ "src": "/icon_512_pro.png?v=8", "sizes": "192x192" }]
+    },
+    {
+      "name": "Financeiro",
+      "url": "/?page=finance",
+      "icons": [{ "src": "/icon_512_pro.png?v=8", "sizes": "192x192" }]
     }
   ]
 }
