@@ -1,8 +1,9 @@
-const CACHE_NAME = 'celiavip-v5';
+const CACHE_NAME = 'celiavip-v6';
 const ASSETS_TO_CACHE = [
   '/',
   '/index.html',
-  '/manifest.json'
+  '/manifest.json',
+  '/logo-final.png'
 ];
 
 self.addEventListener('install', (event) => {
