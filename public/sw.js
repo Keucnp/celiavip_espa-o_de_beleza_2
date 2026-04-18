@@ -1,9 +1,11 @@
-const CACHE_NAME = 'celiavip-v8';
+const CACHE_NAME = 'celiavip-v9';
 const STATIC_ASSETS = [
   '/',
   '/index.html',
   '/manifest.json',
-  '/icon_512_pro.png?v=8'
+  '/favicon-32.png?v=9',
+  '/icon-192.png?v=9',
+  '/icon-512.png?v=9'
 ];
 
 // Instalação: Cacheia os arquivos estáticos base
