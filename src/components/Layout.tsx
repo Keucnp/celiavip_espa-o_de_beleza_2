@@ -12,13 +12,16 @@ import {
   Sparkles,
   Palette,
   Plus,
-  Github
+  Github,
+  Database,
+  Upload,
+  Download as DownloadIcon
 } from 'lucide-react';
 import { cn } from '../lib/utils';
-import { googleSheetsService } from '../services/dataService';
+import { googleSheetsService, storageService } from '../services/dataService';
 import { notificationService } from '../services/notificationService';
 import { motion, AnimatePresence } from 'motion/react';
-import { ToastContainer } from './Toast';
+import { toast, ToastContainer } from './Toast';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -103,11 +106,22 @@ export default function Layout({ children }: LayoutProps) {
   }, [isDarkMode]);
 
   const handleSync = async () => {
+    if (isSyncing) return;
     setIsSyncing(true);
+    toast.info('Sincronização Iniciada', 'Aguarde enquanto carregamos os dados mais recentes...');
     try {
-      // Trigger a global data refresh if needed, but for now just simulate
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      window.location.reload(); // Simple way to refresh all data
+      // Trigger requests to clear cache or refetch
+      await Promise.all([
+        googleSheetsService.fetchData('Financeiro'),
+        googleSheetsService.fetchData('Tarefas'),
+        googleSheetsService.fetchData('Clientes')
+      ]);
+      toast.success('Sincronização Concluída', 'Seus dados estão atualizados!');
+      // Give a tiny delay so they see the success message before reload
+      setTimeout(() => window.location.reload(), 1000);
+    } catch (e) {
+      console.error('Sync failed:', e);
+      toast.error('Erro na Sincronização', 'Não foi possível conectar às planilhas.');
     } finally {
       setIsSyncing(false);
     }
@@ -124,6 +138,46 @@ export default function Layout({ children }: LayoutProps) {
 
     return () => clearInterval(interval);
   }, []);
+
+  const handleExportBackup = () => {
+    const backup = {
+      finance: storageService.getFinance(),
+      tasks: storageService.getTasks(),
+      clients: storageService.getClients(),
+      timestamp: new Date().toISOString()
+    };
+    
+    const blob = new Blob([JSON.stringify(backup, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `celiavip_backup_${new Date().toISOString().split('T')[0]}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+    toast.success('Backup Concluído', 'Arquivo de backup salvo com sucesso.');
+  };
+
+  const handleImportBackup = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      try {
+        const backup = JSON.parse(event.target?.result as string);
+        if (backup.finance) localStorage.setItem('organizapro_finance', JSON.stringify(backup.finance));
+        if (backup.tasks) localStorage.setItem('organizapro_tasks', JSON.stringify(backup.tasks));
+        if (backup.clients) localStorage.setItem('organizapro_clients', JSON.stringify(backup.clients));
+        
+        toast.success('Importação Concluída', 'Dados restaurados com sucesso. Recarregando...');
+        setTimeout(() => window.location.reload(), 2000);
+      } catch (err) {
+        console.error('Import failed:', err);
+        toast.error('Erro na Importação', 'Arquivo de backup inválido.');
+      }
+    };
+    reader.readAsText(file);
+  };
 
   const toggleTheme = () => {
     setIsDarkMode(prev => !prev);
@@ -353,6 +407,38 @@ export default function Layout({ children }: LayoutProps) {
                       >
                         {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
                       </button>
+                    </div>
+                  </div>
+
+                  {/* Backup Section */}
+                  <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800">
+                    <div>
+                      <h3 className="font-semibold text-slate-900 dark:text-white flex items-center gap-2">
+                        <Database size={18} className="text-indigo-500" />
+                        Backup de Dados Local
+                      </h3>
+                      <p className="text-xs text-slate-500 dark:text-slate-400 mb-4">Exportar ou importar dados deste dispositivo</p>
+                      
+                      <div className="flex gap-2">
+                        <button
+                          onClick={handleExportBackup}
+                          className="flex-1 flex items-center justify-center gap-2 py-3 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-xs font-bold hover:bg-slate-100 transition-all active:scale-95"
+                        >
+                          <DownloadIcon size={14} />
+                          Exportar
+                        </button>
+                        
+                        <label className="flex-1 flex items-center justify-center gap-2 py-3 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-xs font-bold hover:bg-slate-100 transition-all active:scale-95 cursor-pointer">
+                          <Upload size={14} />
+                          Importar
+                          <input 
+                            type="file" 
+                            accept=".json" 
+                            className="hidden" 
+                            onChange={handleImportBackup}
+                          />
+                        </label>
+                      </div>
                     </div>
                   </div>
                 </div>

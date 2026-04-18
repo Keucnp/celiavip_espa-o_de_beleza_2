@@ -129,9 +129,18 @@ class NotificationService {
       if (notifiedIds.includes(task.id)) return;
 
       try {
+        if (!task.date || !task.time) return;
+        
         // Combine date and time
-        const eventDate = parseISO(`${task.date}T${task.time}`);
-        const reminderDate = subMinutes(eventDate, task.reminderMinutes);
+        const dateStr = String(task.date).includes('T') ? task.date : `${task.date}T${task.time}`;
+        const eventDate = parseISO(dateStr);
+        
+        if (isNaN(eventDate.getTime())) {
+          console.warn(`Invalid date format for task ${task.id}: ${task.date}T${task.time}`);
+          return;
+        }
+
+        const reminderDate = subMinutes(eventDate, Number(task.reminderMinutes) || 0);
 
         // If current time is after reminder time and before event time
         if (isAfter(now, reminderDate) && isBefore(now, eventDate)) {

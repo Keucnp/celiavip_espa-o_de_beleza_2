@@ -137,13 +137,23 @@ export const googleSheetsService = {
     
     try {
       const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 10000); // 10s timeout
+      const timeoutId = setTimeout(() => controller.abort(), 15000); // 15s timeout
       
       const response = await fetch(`${scriptUrl}?sheet=${sheet}`, { signal: controller.signal });
       clearTimeout(timeoutId);
-      return await response.json();
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
+      const result = await response.json();
+      return Array.isArray(result) ? result : [];
     } catch (error) {
-      console.error('Error fetching from Sheets:', error);
+      console.error(`Error fetching ${sheet} from Sheets:`, error);
+      // Fallback to local storage if fetch fails
+      if (sheet === 'Financeiro') return storageService.getFinance();
+      if (sheet === 'Tarefas') return storageService.getTasks();
+      if (sheet === 'Clientes') return storageService.getClients();
       return [];
     }
   },
